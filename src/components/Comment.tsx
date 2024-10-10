@@ -26,35 +26,35 @@ export default function Comment({ comment, childs, setChilds }: { comment: Comme
     const replyBoxRef = useRef<any>(null)
     const [editContent, setEditContent] = useState(comment.comment_content)
     const params = useParams<{ id: string }>()
-
+    
     useEffect(() => {
         if (comment.comment_right - comment.comment_left > 1) {
             console.log('commentId', comment)
-            dispatch(getCommentByParentId({ filmId: movie._id, parentCommentId: comment._id }))
+            dispatch(getCommentByParentId({ filmId: movie.id, parentCommentId: comment.id }))
         }
     }, [])
-
+    console.log('comment',comment)
     useEffect(() => {
         if (commentChild.isSuccess && commentChild.isGetCommentByParentId) {
-            // Lọc ra các phần tử có comment_parentId bằng với comment._id
+            // Lọc ra các phần tử có comment_parentId bằng với comment.id
             const b = commentChild.commentChilds?.metadata.filter((child: any) => {
-                return child.comment_parentId === comment._id;
+                return child.comment_parentId === comment.id;
             });
 
             // Tạo một Set chứa các ID của các phần tử hiện có trong childs
-            const existingChildIds = new Set(childs.map((child: any) => child._id));
+            const existingChildIds = new Set(childs.map((child: any) => child.id));
 
             // Lọc các phần tử chưa có trong childs
-            const elementsNotInChilds = b.filter((element: any) => !existingChildIds.has(element._id));
+            const elementsNotInChilds = b.filter((element: any) => !existingChildIds.has(element.id));
 
             setChilds((prevChilds: any) => {
                 // Tạo một Set từ prevChilds để đảm bảo không có phần tử trùng lặp
-                const updatedChilds = new Map(prevChilds.map((child: any) => [child._id, child]));
+                const updatedChilds = new Map(prevChilds.map((child: any) => [child.id, child]));
 
                 // Thêm các phần tử mới không trùng lặp vào Set
                 elementsNotInChilds.forEach((element: any) => {
-                    if (!updatedChilds.has(element._id)) {
-                        updatedChilds.set(element._id, element);
+                    if (!updatedChilds.has(element.id)) {
+                        updatedChilds.set(element.id, element);
                     }
                 });
 
@@ -88,12 +88,12 @@ export default function Comment({ comment, childs, setChilds }: { comment: Comme
         if (commentChild.isSuccess && commentChild.isCommentReply)
             setChilds((prevChilds: any) => {
                 // Tạo một Set từ prevChilds để đảm bảo không có phần tử trùng lặp
-                const updatedChilds = new Map(prevChilds.map((child: any) => [child._id, child]));
+                const updatedChilds = new Map(prevChilds.map((child: any) => [child.id, child]));
 
                 // Thêm các phần tử mới không trùng lặp vào Set
 
-                if (!updatedChilds.has(commentChild.comment.metadata._id)) {
-                    updatedChilds.set(commentChild.comment.metadata._id, commentChild.comment.metadata);
+                if (!updatedChilds.has(commentChild.comment.metadata.id)) {
+                    updatedChilds.set(commentChild.comment.metadata.id, commentChild.comment.metadata);
                 }
 
 
@@ -104,17 +104,18 @@ export default function Comment({ comment, childs, setChilds }: { comment: Comme
 
     console.log('commentChild', childs)
     const user = getToken()
+    console.log('userInComment',user)
     const handleCancelEdit = () => {
         setIsEdit(false);
         setEditContent(comment.comment_content);
     };
 
     const handleSaveEdit = () => {
-        dispatch(editComment({commentId: comment._id, filmId: comment.comment_filmId, content: editContent }))
+        dispatch(editComment({commentId: comment.id, filmId: comment.comment_movieId ? comment.comment_movieId : comment.comment_tvId, content: editContent }))
     };
 
     const handleDeleteComment= ()=>{
-        dispatch(deleteComment({commentId: comment._id, filmId: comment.comment_filmId}))
+        dispatch(deleteComment({commentId: comment.id, filmId:comment.comment_movieId ? comment.comment_movieId : comment.comment_tvId}))
     }
     useEffect(()=>{
         if(commentChild.isSuccess && commentChild.isEditComment){
@@ -134,7 +135,7 @@ export default function Comment({ comment, childs, setChilds }: { comment: Comme
             {comment && (
 
 
-                <div key={comment._id} id="comment" className="flex flex-col my-3 mx-5 p-2 ring-1 ring-ctBlue-logo rounded-lg shadow-lg">
+                <div key={comment.id} id="comment" className="flex flex-col my-3 mx-5 p-2 ring-1 ring-ctBlue-logo rounded-lg shadow-lg">
                     <div id="header" className="flex flex-row justify-between">
                         <div className="text-lg font-bold">
                             {comment.comment_user?.name}
@@ -149,6 +150,7 @@ export default function Comment({ comment, childs, setChilds }: { comment: Comme
                             })()}
                         </div>
                     </div>
+
                     <div>
 
                         {isEdit ? (
@@ -187,7 +189,7 @@ export default function Comment({ comment, childs, setChilds }: { comment: Comme
 
                             />
                         </button>
-                        {user && user.user._id === comment.comment_user?._id &&
+                        {user && user.user.id === comment.comment_user?.userId &&
                             <>
                                 {/* <button onClick={()=>setIsEdit(true)}>
                                     <FaEdit
@@ -258,16 +260,16 @@ export default function Comment({ comment, childs, setChilds }: { comment: Comme
 
             {isReplying && (
                 <div className="mt-1 ml-6" ref={replyBoxRef}>
-                    <CommentReply place={`Đang trả lời bình luận của ${comment.comment_user?.name}`} username={comment.comment_user?.name} commentId={comment._id} />
+                    <CommentReply place={`Đang trả lời bình luận của ${comment.comment_user?.name}`} username={comment.comment_user?.name} commentId={comment.id} />
                 </div>
             )}
             {childs.length > 0 && (
                 <div className="ml-5  border-l-2 border-gray-300 pl-4">
                     {childs.map((commentChild: CommentProps) => (
                         <>
-                            {commentChild.comment_parentId === comment._id &&
+                            {commentChild.comment_parentId === comment.id &&
 
-                                <Comment key={commentChild._id} comment={commentChild} childs={childs} setChilds={setChilds} />
+                                <Comment key={commentChild.id} comment={commentChild} childs={childs} setChilds={setChilds} />
                             }
                         </>
                     ))}

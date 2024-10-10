@@ -12,9 +12,9 @@ export default function FilmCard(data: any) {
     if (data.data.type === 'movie') {
       // if(localStorage.getItem('movie')) localStorage.removeItem('movie')
       //   else localStorage.setItem('movie',JSON.stringify(data.data))
-      router.push(`/movie/${data.data._id}`)
+      router.push(`/movie/${data.data.id}`)
     } else if (data.data.type === 'tvshow') {
-      router.push(`/tv/${data.data._id}`)
+      router.push(`/tv/${data.data.id}`)
     }
   }
   const renderCategoryIcon = (category: string) => {

@@ -46,7 +46,7 @@ export default function MovieDetail() {
 
 
     useEffect(() => {
-        if (movieState.movie.metadata._id)
+        if (movieState.movie.metadata.id)
             dispatch(getCommentByFilm({ filmId: params?.id as string }))
     }, [movieState, params])
 
@@ -94,15 +94,15 @@ export default function MovieDetail() {
         }
     }, [movieState.isLoading])
 
-    useEffect(() => {
-        if (movieState.isSuccess && movieState.isGetRatings) {
-            const userFound = movieState.ratings.metadata.ratings.filter((r: any) => r.userId.toString() === user.user._id.toString())
-            if (userFound.length > 0) {
-                console.log('userFoundddddd', userFound[0].rating)
-                setRating(userFound[0].rating as number)
-            }
-        }
-    }, [movieState.isLoading])
+    // useEffect(() => {
+    //     if (movieState.isSuccess && movieState.isGetRatings) {
+    //         const userFound = movieState.ratings.metadata.ratings.filter((r: any) => r.userId.toString() === user.user.id.toString())
+    //         if (userFound.length > 0) {
+    //             console.log('userFoundddddd', userFound[0].rating)
+    //             setRating(userFound[0].rating as number)
+    //         }
+    //     }
+    // }, [movieState.isLoading])
     const handlePlay = (e: any) => {
         e.preventDefault()
         setPlaying(true);
@@ -202,8 +202,8 @@ export default function MovieDetail() {
                             <div>
                                 {
 
-                                    movieState.movie.metadata?.category.map((item: any) => item.name).join(", ") !== "" && movieState.movie.metadata?.category.map((item: any) => item.name).join(", ") !== ", " ?
-                                        movieState.movie.metadata?.category.map((item: any) => item.name).join(", ") : "Đang cập nhật"
+                                    movieState.movie.metadata?.category.map((item: any) => item.category.name).join(", ") !== "" && movieState.movie.metadata?.category.map((item: any) => item.category.name).join(", ") !== ", " ?
+                                        movieState.movie.metadata?.category.map((item: any) => item.category.name).join(", ") : "Đang cập nhật"
                                 }
                             </div>
                             <div>
@@ -212,15 +212,15 @@ export default function MovieDetail() {
                             <div>
                                 {
 
-                                    movieState.movie.metadata?.director.map((item: any) => item.name).join(", ") !== "" && movieState.movie.metadata?.director.map((item: any) => item.name).join(", ") !== ", " ?
-                                        movieState.movie.metadata?.director.map((item: any) => item.name).join(", ") : "Đang cập nhật"
+                                    movieState.movie.metadata?.director.map((item: any) => item.director.name).join(", ") !== "" && movieState.movie.metadata?.director.map((item: any) => item.director.name).join(", ") !== ", " ?
+                                        movieState.movie.metadata?.director.map((item: any) => item.director.name).join(", ") : "Đang cập nhật"
                                 }
                             </div>
                             <div>
                                 {
 
-                                    movieState.movie.metadata?.actor.map((item: any) => item).join(", ") !== "" && movieState.movie.metadata?.actor.map((item: any) => item.name).join(", ") !== ", " ?
-                                        movieState.movie.metadata?.actor.map((item: any) => item).join(", ") : "Đang cập nhật"
+                                    movieState.movie.metadata?.actor.map((item: any) => item.actor.name).join(", ") !== "" && movieState.movie.metadata?.actor.map((item: any) => item.actor.name).join(", ") !== ", " ?
+                                        movieState.movie.metadata?.actor.map((item: any) => item.actor.name).join(", ") : "Đang cập nhật"
                                 }
                             </div>
                         </div>

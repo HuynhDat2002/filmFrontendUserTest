@@ -26,7 +26,7 @@ export default function CommentList({ commentRoots }: { commentRoots: any }) {
             <CommentForm />
             {commentRoots?.length > 0 && commentRoots.map((root: CommentProps) => (
                 
-                    <div key={root._id} id="comment" >
+                    <div key={root.id} id="comment" >
                         <Comment comment={root} childs={childs} setChilds={setChilds}/>
                     </div>
                 

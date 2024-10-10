@@ -84,7 +84,7 @@ const initialState={
       message:"",
       status:200,
       metadata:[{
-        _id:"",
+        id:"",
         name: "",
         slug: "",
         origin_name:"" ,
@@ -95,21 +95,15 @@ const initialState={
         time: "",
         lang: "",
         year: 0,
-        actor: [""],
-        director: [""],
-        category: [{
-          name: "",
-          slug: "",
-          _id: ""
-      }],
-        country: [{
-          name: "",
-          slug: "",
-          _id: ""
-        }],
+        actor: [{actor:{id:"",name:""}}],
+        director: [{director:{id:"",name:""},directorId:"",movieId:""}],
+        category: [{category:{id:"",name:"",slug:""},categoryId:"",movieId:""}],
+        country: [{country:{id:"",name:"",slug:""},countryId:"",movieId:""}],
         quality: "",
         episode_current:"" ,
         video: "",
+        view:0,
+        type:""
       }]
     },
     movieLength:{
@@ -121,7 +115,7 @@ const initialState={
       message:"",
       status:200,
       metadata:{
-        _id:"",
+        id:"",
         name: "",
         slug: "",
         origin_name:"" ,
@@ -132,21 +126,15 @@ const initialState={
         time: "",
         lang: "",
         year: 0,
-        actor: [""],
-        director: [""],
-        category: [{
-          name: "",
-          slug: "",
-          _id: ""
-      }],
-        country: [{
-          name: "",
-          slug: "",
-          _id: ""
-        }],
+        actor: [{actor:{id:"",name:""}}],
+        director: [{director:{id:"",name:""},directorId:"",movieId:""}],
+        category: [{category:{id:"",name:"",slug:""},categoryId:"",movieId:""}],
+        country: [{country:{id:"",name:"",slug:""},countryId:"",movieId:""}],
         quality: "",
         episode_current:"" ,
-        video: ""
+        video: "",
+        view:0,
+        type:""
       }
     },
 

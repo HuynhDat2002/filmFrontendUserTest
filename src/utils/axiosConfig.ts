@@ -6,7 +6,7 @@ const base_url_user = "https://localhost/user/api"
 
 
 interface Token {
-    user: { _id: string };
+    user: { id: string };
     tokens: string;
 }
 
@@ -24,7 +24,7 @@ export const getToken = (): Token => {
     //     return JSON.parse(localStorage.getItem("user") as string) as Token;
     // }
     return {
-        user: { _id: "" },
+        user: { id: "" },
         tokens: ""
     };
 };
@@ -35,7 +35,7 @@ const createAxiosUserInstance = (token: Token) => {
         baseURL: base_url_user,
         withCredentials: true,
         headers: {
-            'x-client-id': token.user._id || '',
+            'x-client-id': token.user.id || '',
             'authorization': token.tokens || '',
             Accept: "application/json",
         },
@@ -47,7 +47,7 @@ const createAxiosUserInstanceFilm = (token: Token) => {
         baseURL: base_url,
         withCredentials: true,
         headers: {
-            'x-client-id': token.user._id || '',
+            'x-client-id': token.user.id || '',
             'authorization': token.tokens || '',
             Accept: "application/json",
         },
