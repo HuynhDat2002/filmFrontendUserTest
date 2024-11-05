@@ -9,6 +9,7 @@ import "@fortawesome/fontawesome-svg-core/styles.css";
 import { config } from "@fortawesome/fontawesome-svg-core";
 import '@smastrom/react-rating/style.css'
 import type { NextApiRequest, NextApiResponse } from 'next';
+import { Suspense } from "react";
 
 config.autoAddCss = false;
 
@@ -30,10 +31,13 @@ export default function RootLayout({
         <body className={inter.className}>
           <Header />
           <div className="">
+        
             <div className="w-[90%] xl:w-[75%] flex justify-center items-center  mx-auto  shadow-2xl ">
-
+            <Suspense fallback={<div>Loading...</div>}>
               {children}
+              </Suspense>
             </div>
+      
           </div>
           
         </body>

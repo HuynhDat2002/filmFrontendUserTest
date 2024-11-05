@@ -195,15 +195,13 @@ export default function MovieDetail() {
                             <div>
                                 {
 
-                                    movieState.movie.metadata?.country.map((item: any) => item.name).join(", ") !== "" && movieState.movie.metadata?.country.map((item: any) => item.name).join(", ") !== ", " ?
-                                        movieState.movie.metadata?.country.map((item: any) => item.name).join(", ") : "Đang cập nhật"
+                                    movieState.movie.metadata?.country !== "" ? movieState.movie.metadata?.country : "Đang cập nhật"
                                 }
                             </div>
                             <div>
                                 {
 
-                                    movieState.movie.metadata?.category.map((item: any) => item.category.name).join(", ") !== "" && movieState.movie.metadata?.category.map((item: any) => item.category.name).join(", ") !== ", " ?
-                                        movieState.movie.metadata?.category.map((item: any) => item.category.name).join(", ") : "Đang cập nhật"
+                                    movieState.movie.metadata?.category !== "" ? movieState.movie.metadata?.category : "Đang cập nhật"
                                 }
                             </div>
                             <div>
@@ -212,15 +210,13 @@ export default function MovieDetail() {
                             <div>
                                 {
 
-                                    movieState.movie.metadata?.director.map((item: any) => item.director.name).join(", ") !== "" && movieState.movie.metadata?.director.map((item: any) => item.director.name).join(", ") !== ", " ?
-                                        movieState.movie.metadata?.director.map((item: any) => item.director.name).join(", ") : "Đang cập nhật"
+                                    movieState.movie.metadata?.director !== "" ? movieState.movie.metadata?.director: "Đang cập nhật"
                                 }
                             </div>
                             <div>
                                 {
 
-                                    movieState.movie.metadata?.actor.map((item: any) => item.actor.name).join(", ") !== "" && movieState.movie.metadata?.actor.map((item: any) => item.actor.name).join(", ") !== ", " ?
-                                        movieState.movie.metadata?.actor.map((item: any) => item.actor.name).join(", ") : "Đang cập nhật"
+                                    movieState.movie.metadata?.actor !== "" ? movieState.movie.metadata?.actor: "Đang cập nhật"
                                 }
                             </div>
                         </div>

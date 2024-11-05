@@ -9,6 +9,9 @@ import { searchMovie } from '../../lib/features/movie.slice'
 import { searchTV } from '../../lib/features/tv.slice'
 import PageSearch from '../../components/PaginationSearch'
 import ErrorModal from '../../components/ErrorModal'
+import { Suspense } from "react";
+
+
 export default function Search() {
     const searchParams = useSearchParams()
     const [searchList, setSearchList] = useState<Array<any>>([])
@@ -46,7 +49,7 @@ export default function Search() {
     }, [movie.isLoading, tv.isLoading])
     return (
         // <div className="w-[90%] xl:w-[80%] flex justify-center items-center  mx-auto mt-10">
-        <>
+        <Suspense>
             <div className="flex flex-col gap-5 min-h-screen mt-10">
 
                 <div className=" grid grid-cols-2 gap-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-5 items-start">
@@ -71,7 +74,7 @@ export default function Search() {
                 }
             </div>
             <ErrorModal isOpen={isOpenError} onClose={() => setIsOpenError(false)} message={messageError} />
-        </>
+        </Suspense>
         // </div>
 
     )

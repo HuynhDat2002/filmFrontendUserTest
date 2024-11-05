@@ -1,8 +1,8 @@
 import axios from "axios";
 import { NextApiRequest, NextApiResponse } from "next";
 
-export const base_url = "https://localhost/film/api"
-const base_url_user = "https://localhost/user/api"
+export const base_url = "http://localhost/film/api"
+const base_url_user = "http://localhost/user/api"
 
 
 interface Token {
